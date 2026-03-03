@@ -1,5 +1,7 @@
 package main
 
+import "unicode"
+
 //Разработать программу, которая проверяет, что все символы в строке встречаются один раз (т.е. строка состоит из уникальных символов).
 
 // Вывод: true, если все символы уникальны, false, если есть повторения. Проверка должна быть регистронезависимой, т.е. символы в разных регистрах считать одинаковыми.
@@ -7,7 +9,14 @@ package main
 // Например: "abcd" -> true, "abCdefAaf" -> false (повторяются a/A), "aabcd" -> false.
 
 // Подумайте, какой структурой данных удобно воспользоваться для проверки условия.
-// func hasDublicate(str string) {
-// 	unique := make(map[rune]struct{})
-
-// }
+func hasDuplicate(str string) bool {
+	unique := make(map[rune]struct{}, len(str))
+	for _, v := range str {
+		lowerV := unicode.ToLower(v)
+		if _, ok := unique[lowerV]; ok {
+			return false
+		}
+		unique[lowerV] = struct{}{}
+	}
+	return true
+}
